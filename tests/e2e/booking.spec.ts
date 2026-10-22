@@ -2,8 +2,8 @@ import { test, expect, type Page } from "@playwright/test";
 
 async function login(page: Page, role: "customer" | "staff" | "admin") {
   await page.goto("/login");
-  await page.getByLabel("Email address").fill(`${role}@calenza.example`);
-  await page.getByLabel("Password", { exact: true }).fill("CalenzaDemo!2026");
+  await page.getByLabel("Email address").fill(`${role}@sereno.example`);
+  await page.getByLabel("Password", { exact: true }).fill("SerenoDemo!2026");
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
   await expect(page).toHaveURL(
     role === "customer" ? /\/account$/ : /\/dashboard$/,
@@ -172,10 +172,8 @@ test("new customer can register and competing reservations return one conflict",
     for (const [index, context] of contexts.entries()) {
       const response = await context.post("/api/v1/auth/login", {
         data: {
-          email: index
-            ? "customer2@calenza.example"
-            : "customer@calenza.example",
-          password: "CalenzaDemo!2026",
+          email: index ? "customer2@sereno.example" : "customer@sereno.example",
+          password: "SerenoDemo!2026",
         },
       });
       expect(response.status()).toBe(200);
@@ -192,7 +190,7 @@ test("new customer can register and competing reservations return one conflict",
     const responses = await Promise.all(
       contexts.map(async (context) => {
         const csrf = (await context.storageState()).cookies.find(
-          (c) => c.name === "calenza_csrf",
+          (c) => c.name === "sereno_csrf",
         )!.value;
         return context.post("/api/v1/bookings", {
           headers: { "X-CSRF-Token": csrf },
@@ -204,7 +202,7 @@ test("new customer can register and competing reservations return one conflict",
     const winner = responses.findIndex((r) => r.status() === 201);
     const booking = await responses[winner]!.json();
     const csrf = (await contexts[winner]!.storageState()).cookies.find(
-      (c) => c.name === "calenza_csrf",
+      (c) => c.name === "sereno_csrf",
     )!.value;
     expect(
       (

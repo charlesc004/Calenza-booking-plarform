@@ -11,6 +11,7 @@ apps/api/alembic/env.py
 apps/api/alembic/script.py.mako
 apps/api/alembic/versions/7ef812a91620_appointment_integrity.py
 apps/api/alembic/versions/b914db2f17c0_assignment_notifications.py
+apps/api/alembic/versions/c4a29e810f62_sereno_brand.py
 apps/api/alembic/versions/d9f1c5631bd8_initial.py
 apps/api/app/__init__.py
 apps/api/app/core/config.py
@@ -44,6 +45,7 @@ apps/api/scripts/start.py
 apps/api/tests/conftest.py
 apps/api/tests/integration/__init__.py
 apps/api/tests/integration/conftest.py
+apps/api/tests/integration/test_brand_migration.py
 apps/api/tests/integration/test_notifications.py
 apps/api/tests/integration/test_policies.py
 apps/api/tests/integration/test_workflows.py

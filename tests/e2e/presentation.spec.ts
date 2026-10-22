@@ -6,6 +6,10 @@ test("public navigation highlights the current page or studio section exactly on
 }) => {
   const navigation = page.getByRole("navigation", { name: "Main navigation" });
   await page.goto("/");
+  await expect(page).toHaveTitle(/— SERENO Studio$/);
+  await expect(
+    page.getByRole("link", { name: "SERENO home", exact: true }),
+  ).toBeVisible();
   await expect(navigation.locator("[aria-current]")).toHaveCount(1);
   await expect(
     navigation.getByRole("link", { name: "Home", exact: true }),
@@ -97,8 +101,8 @@ test("admin pages load without runtime errors or inaccessible controls", async (
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/login");
-  await page.getByLabel("Email address").fill("admin@calenza.example");
-  await page.getByLabel("Password", { exact: true }).fill("CalenzaDemo!2026");
+  await page.getByLabel("Email address").fill("admin@sereno.example");
+  await page.getByLabel("Password", { exact: true }).fill("SerenoDemo!2026");
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
   await expect(page).toHaveURL(/\/dashboard$/);
   await expect(page.locator(".metric-card")).toHaveCount(4);

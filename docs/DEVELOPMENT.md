@@ -1,6 +1,6 @@
 # Development guide
 
-Setup, scheduling guarantees, authentication, maintenance and test commands for CALENZA. Commands start at the repository root unless stated otherwise.
+Setup, scheduling guarantees, authentication, maintenance and test commands for SERENO. Commands start at the repository root unless stated otherwise.
 
 ## Run locally
 
@@ -13,13 +13,13 @@ python scripts/setup_env.py
 docker compose up --build
 ```
 
-Open [CALENZA](http://localhost:8080). The API applies Alembic migrations and seeds demo data when `SEED_DEMO=true` and `ENVIRONMENT=development`. PostgreSQL data persists in a named volume. Configuration generation creates fresh random credentials and refuses to overwrite existing `.env` files.
+Open [SERENO](http://localhost:8080). The API applies Alembic migrations and seeds demo data when `SEED_DEMO=true` and `ENVIRONMENT=development`. PostgreSQL data persists in a named volume. Configuration generation creates fresh random credentials and refuses to overwrite existing `.env` files.
 
 Docker is not installed on the development host used for this delivery, so Compose startup has **not** been executed here. Native PostgreSQL, migrations, API startup, frontend startup, and workflows have been tested. See [verification and limitations](DELIVERY.md).
 
 ### Native development
 
-Run PostgreSQL on `localhost:5432` with credentials matching `apps/api/.env`. `python scripts/setup_env.py` generates both the Compose and native development environments. Create the `calenza` database first, owned by the configured role. That role must be allowed to install the trusted `btree_gist` extension in its database.
+Run PostgreSQL on `localhost:5432` with credentials matching `apps/api/.env`. `python scripts/setup_env.py` generates both the Compose and native development environments. Create the `sereno` database first, owned by the configured role. That role must be allowed to install the trusted `btree_gist` extension in its database.
 
 ```powershell
 python -m venv .venv
@@ -46,13 +46,13 @@ Open [the development app](http://localhost:5173) and [the API documentation](ht
 
 Only created by the development seed:
 
-| Role                  | Email                      | Password           |
-| --------------------- | -------------------------- | ------------------ |
-| Administrator         | `admin@calenza.example`    | `CalenzaDemo!2026` |
-| Professional (Olivia) | `staff@calenza.example`    | `CalenzaDemo!2026` |
-| Customer (Emma)       | `customer@calenza.example` | `CalenzaDemo!2026` |
+| Role                  | Email                     | Password          |
+| --------------------- | ------------------------- | ----------------- |
+| Administrator         | `admin@sereno.example`    | `SerenoDemo!2026` |
+| Professional (Olivia) | `staff@sereno.example`    | `SerenoDemo!2026` |
+| Customer (Emma)       | `customer@sereno.example` | `SerenoDemo!2026` |
 
-Additional fictional customer accounts use `customer2@calenza.example` through `customer25@calenza.example`. The seed creates 8 services, 5 professionals, 25 customers, weekly studio/staff hours, time off, opening overrides, and approximately 240–250 appointments over a rolling 29-day period. Active appointments do not overlap. Past appointments include completed, cancelled, and no-show states. Each appointment has activity history and a notification.
+Additional fictional customer accounts use `customer2@sereno.example` through `customer25@sereno.example`. The seed creates 8 services, 5 professionals, 25 customers, weekly studio/staff hours, time off, opening overrides, and approximately 240â€“250 appointments over a rolling 29-day period. Active appointments do not overlap. Past appointments include completed, cancelled, and no-show states. Each appointment has activity history and a notification.
 
 The demo uses **Europe/London** for local schedules and GBP display prices. Dates in the product follow that business timezone, which may differ from the viewer's current date.
 
@@ -128,7 +128,7 @@ npm run test:e2e
 
 API tests require a **separate PostgreSQL database whose name ends in `_test`**. The integration fixture truncates and reseeds that database before each test, and refuses an unqualified database URL. Never point it to a database with real data.
 
-PowerShell, from `apps/api`, after creating `calenza_test` with the same owner:
+PowerShell, from `apps/api`, after creating `sereno_test` with the same owner:
 
 ```powershell
 $env:TEST_DATABASE_URL = ((Get-Content .env | Where-Object { $_ -like 'DATABASE_URL=*' }) -replace '^DATABASE_URL=','') + '_test'
@@ -144,9 +144,17 @@ Remove-Item Env:TEST_DATABASE_URL
 POSIX equivalent, with the configured password/host/port:
 
 ```sh
-export TEST_DATABASE_URL='postgresql+asyncpg://calenza:YOUR_PASSWORD@localhost:5432/calenza_test'
+export TEST_DATABASE_URL='postgresql+asyncpg://sereno:YOUR_PASSWORD@localhost:5432/sereno_test'
 DATABASE_URL="$TEST_DATABASE_URL" python -m alembic upgrade head
 python -m pytest -q
 ```
 
 The pure scheduling tests can be run independently with `python -m pytest tests/unit/test_slots.py`. PostgreSQL-specific integration tests are never replaced with SQLite. E2E tests create fictional accounts/bookings and retain cancelled booking history. The hours-edit test restores the original schedule in a `finally` block.
+
+## Upgrading an existing installation
+
+Keep your existing `.env`, `DATABASE_URL`, PostgreSQL role and database. The new `sereno` defaults apply to fresh installations; changing the brand does not require renaming an existing database or recreating its Docker volume.
+
+Run `python -m alembic upgrade head` from `apps/api`. The brand migration changes only the original studio name and contact-email defaults, preserving custom studio details, accounts, passwords and appointment history. Existing accounts keep their current credentials; the Sereno demo credentials above apply to a freshly seeded database.
+
+Authentication cookies now use the `sereno_` prefix. Sign in again after upgrading. No account or booking is deleted by this change.

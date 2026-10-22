@@ -173,9 +173,9 @@ class Notification(Base):
 class BusinessSettings(Base):
     __tablename__ = "business_settings"
     id: Mapped[int] = mapped_column(primary_key=True, default=1)
-    name: Mapped[str] = mapped_column(String(100), default="CALENZA Studio")
+    name: Mapped[str] = mapped_column(String(100), default="SERENO Studio")
     timezone: Mapped[str] = mapped_column(String(100), default="Europe/London")
-    email: Mapped[str] = mapped_column(String(254), default="hello@calenza.example")
+    email: Mapped[str] = mapped_column(String(254), default="hello@sereno.example")
     phone: Mapped[str] = mapped_column(String(40), default="+44 20 7946 0382")
     address: Mapped[str] = mapped_column(String(300), default="28 Willow Lane, London")
     horizon_days: Mapped[int] = mapped_column(default=90)

@@ -2,6 +2,14 @@
 
 Final local review: 20 October 2026.
 
+## Sereno rebrand — 22 October 2026
+
+The application, package namespaces, API title, authentication cookies, demo fixtures, CI configuration, environment defaults, favicon and documentation now use Sereno. All six README screenshots were captured again from the running application.
+
+Validation: **37 PostgreSQL-backed tests, 7 frontend unit tests and 8 Playwright tests passed**, along with production build, strict TypeScript, lint/format checks and Alembic drift checking. The additional integration test verifies forward/reverse studio-brand migration, preservation of custom settings, unchanged account credentials and retained appointment counts.
+
+Only the historical migration and its regression test retain the original brand literals. Existing database URLs and account credentials remain valid; see [upgrade instructions](DEVELOPMENT.md#upgrading-an-existing-installation). Repository hosting metadata and the local folder name are outside the application rebrand.
+
 ## Review changes
 
 - Reworked the GitHub README around the product, six desktop screenshots, features, quick start and architecture. Moved operational details to the development guide.

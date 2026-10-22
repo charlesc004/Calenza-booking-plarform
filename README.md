@@ -1,8 +1,8 @@
-# CALENZA Studio
+# SERENO Studio
 
 **Thoughtful care. Effortless scheduling.**
 
-CALENZA brings the calm of a wellness studio to appointment booking. Customers discover treatments and reserve time with the right professional, while the team manages schedules, clients and daily operations in one shared workspace.
+SERENO brings the calm of a wellness studio to appointment booking. Customers discover treatments and reserve time with the right professional, while the team manages schedules, clients and daily operations in one shared workspace.
 
 [Features](#features) · [Screenshots](#screenshots) · [Quick start](#quick-start) · [Architecture](#architecture) · [Development guide](docs/DEVELOPMENT.md)
 
@@ -23,7 +23,7 @@ Six desktop views of the working application. Select an image to open it at full
 
 <table>
   <tr>
-    <td width="50%" valign="top"><strong>01 · Homepage</strong><br><br><a href="docs/screenshots/desktop-six/01-homepage.png"><img src="docs/screenshots/desktop-six/01-homepage.png" alt="CALENZA homepage with studio introduction and treatment booking" width="600"></a></td>
+    <td width="50%" valign="top"><strong>01 · Homepage</strong><br><br><a href="docs/screenshots/desktop-six/01-homepage.png"><img src="docs/screenshots/desktop-six/01-homepage.png" alt="SERENO homepage with studio introduction and treatment booking" width="600"></a></td>
     <td width="50%" valign="top"><strong>02 · Services</strong><br><br><a href="docs/screenshots/desktop-six/02-services.png"><img src="docs/screenshots/desktop-six/02-services.png" alt="Searchable treatment catalog and service categories" width="600"></a></td>
   </tr>
   <tr>
@@ -53,13 +53,13 @@ Prefer a native setup? Use **Python 3.14**, **Node.js 24.15+** and **PostgreSQL 
 
 ### Explore the demo
 
-| Experience    | Email                      |
-| ------------- | -------------------------- |
-| Administrator | `admin@calenza.example`    |
-| Professional  | `staff@calenza.example`    |
-| Customer      | `customer@calenza.example` |
+| Experience    | Email                     |
+| ------------- | ------------------------- |
+| Administrator | `admin@sereno.example`    |
+| Professional  | `staff@sereno.example`    |
+| Customer      | `customer@sereno.example` |
 
-All three development accounts use **`CalenzaDemo!2026`**. They are created only by the demo seed. The sample studio uses **Europe/London** and **GBP**, with 8 services, 5 professionals and 25 customers.
+All three development accounts use **`SerenoDemo!2026`**. They are created only by the demo seed. The sample studio uses **Europe/London** and **GBP**, with 8 services, 5 professionals and 25 customers.
 
 ## Architecture
 
@@ -98,6 +98,6 @@ Backend integration tests use a separate PostgreSQL database. Browser tests requ
 
 ## Scope
 
-CALENZA is a working single-studio portfolio application. Email is recorded in a development outbox; SMTP delivery, scheduled reminders, payments and multi-tenancy are outside this version. The calendar supports day/week browsing and appointment actions, without drag-and-drop scheduling.
+SERENO is a working single-studio portfolio application. Email is recorded in a development outbox; SMTP delivery, scheduled reminders, payments and multi-tenancy are outside this version. The calendar supports day/week browsing and appointment actions, without drag-and-drop scheduling.
 
 Native execution has been verified. Docker/Nginx runtime and remote GitHub Actions execution remain unverified on the development host. Public deployment also requires HTTPS, secure cookies and deployment-specific operational configuration; see the [security notes](docs/DEVELOPMENT.md#authentication-and-security).

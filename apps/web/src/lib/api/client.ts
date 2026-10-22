@@ -19,7 +19,7 @@ function csrf() {
   return decodeURIComponent(
     document.cookie
       .split("; ")
-      .find((c) => c.startsWith("calenza_csrf="))
+      .find((c) => c.startsWith("sereno_csrf="))
       ?.split("=")[1] ?? "",
   );
 }

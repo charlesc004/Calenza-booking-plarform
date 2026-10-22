@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
-    database_url: str = "postgresql+asyncpg://calenza:calenza@localhost:5432/calenza"
+    database_url: str = "postgresql+asyncpg://sereno:sereno@localhost:5432/sereno"
     secret_key: str = Field(min_length=32)
     environment: str = "development"
     origin: str = "http://localhost:5173"

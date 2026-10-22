@@ -35,9 +35,9 @@ async def set_session(db: DB, response: Response, user: User) -> None:
     db.add(session)
     await db.flush()
     for name, token, age, http_only, path in [
-        ("calenza_access", access_token(user.id, session.id), 900, True, "/"),
-        ("calenza_refresh", refresh, 604800, True, "/api/v1/auth"),
-        ("calenza_csrf", csrf, 604800, False, "/"),
+        ("sereno_access", access_token(user.id, session.id), 900, True, "/"),
+        ("sereno_refresh", refresh, 604800, True, "/api/v1/auth"),
+        ("sereno_csrf", csrf, 604800, False, "/"),
     ]:
         response.set_cookie(
             name,
@@ -82,7 +82,7 @@ async def login(data: Login, db: DB, response: Response):
 async def refresh(request: Request, response: Response, db: DB):
     session = await db.scalar(
         select(RefreshSession)
-        .where(RefreshSession.token_hash == digest(request.cookies.get("calenza_refresh", "")))
+        .where(RefreshSession.token_hash == digest(request.cookies.get("sereno_refresh", "")))
         .with_for_update()
     )
     if not session or session.revoked_at or session.expires_at <= datetime.now(UTC):
@@ -99,12 +99,12 @@ async def refresh(request: Request, response: Response, db: DB):
 async def logout(request: Request, response: Response, db: DB):
     await db.execute(
         update(RefreshSession)
-        .where(RefreshSession.token_hash == digest(request.cookies.get("calenza_refresh", "")))
+        .where(RefreshSession.token_hash == digest(request.cookies.get("sereno_refresh", "")))
         .values(revoked_at=datetime.now(UTC))
     )
-    response.delete_cookie("calenza_access", path="/")
-    response.delete_cookie("calenza_refresh", path="/api/v1/auth")
-    response.delete_cookie("calenza_csrf", path="/")
+    response.delete_cookie("sereno_access", path="/")
+    response.delete_cookie("sereno_refresh", path="/api/v1/auth")
+    response.delete_cookie("sereno_csrf", path="/")
     return {"message": "Signed out."}
 
 
@@ -150,7 +150,7 @@ async def request_reset(data: ResetRequest, db: DB):
         db.add(
             EmailOutbox(
                 recipient=user.email,
-                subject="Reset your CALENZA password",
+                subject="Reset your SERENO password",
                 body=f"{settings().origin}/reset-password?token={token}\nThis link expires in 30 minutes. This is a development outbox message, not a delivered email.",
             )
         )

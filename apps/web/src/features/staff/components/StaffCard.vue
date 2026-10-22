@@ -11,7 +11,7 @@ defineEmits<{ select: [id: number] }>();
         :src="staff.image || '/images/olivia.svg'"
         :alt="`Illustration of ${staff.display_name}`"
         loading="lazy"
-      /><span class="portrait-mark">c.</span>
+      /><span class="portrait-mark">s.</span>
     </div>
     <div class="staff-details">
       <div>

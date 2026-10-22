@@ -59,10 +59,10 @@ async def client():
 async def login(client, role="customer"):
     result = await client.post(
         "/api/v1/auth/login",
-        json={"email": f"{role}@calenza.example", "password": "CalenzaDemo!2026"},
+        json={"email": f"{role}@sereno.example", "password": "SerenoDemo!2026"},
     )
     assert result.status_code == 200, result.text
-    client.headers["X-CSRF-Token"] = client.cookies.get("calenza_csrf")
+    client.headers["X-CSRF-Token"] = client.cookies.get("sereno_csrf")
     return result.json()
 
 

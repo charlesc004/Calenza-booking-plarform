@@ -15,7 +15,7 @@ DB = Annotated[AsyncSession, Depends(database, scope="function")]
 
 
 async def current_user(request: Request, db: DB) -> User:
-    token = request.cookies.get("calenza_access")
+    token = request.cookies.get("sereno_access")
     if not token:
         fail("unauthenticated", "Please sign in to continue.", 401)
     try:

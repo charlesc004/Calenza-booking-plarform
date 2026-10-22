@@ -77,7 +77,7 @@ const services = useServices(),
         </div>
         <span class="note-spark">✧</span>
       </div>
-      <span class="vertical-note">CALENZA STUDIO · LONDON</span>
+      <span class="vertical-note">SERENO STUDIO · LONDON</span>
     </div>
   </section>
   <div class="values-strip">

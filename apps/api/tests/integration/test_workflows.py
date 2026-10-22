@@ -32,7 +32,7 @@ async def test_registration_login_profile_and_role_restrictions(client):
     assert response.status_code == 201, response.text
     assert response.json()["role"] == "customer"
     assert "password_hash" not in response.json()
-    client.headers["X-CSRF-Token"] = client.cookies.get("calenza_csrf")
+    client.headers["X-CSRF-Token"] = client.cookies.get("sereno_csrf")
     assert (await client.get("/api/v1/admin/settings")).status_code == 403
     assert (
         await client.patch(
@@ -65,10 +65,10 @@ async def test_concurrent_customers_exactly_one_booking_succeeds(client):
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as second:
         response = await second.post(
             "/api/v1/auth/login",
-            json={"email": "customer2@calenza.example", "password": "CalenzaDemo!2026"},
+            json={"email": "customer2@sereno.example", "password": "SerenoDemo!2026"},
         )
         assert response.status_code == 200
-        second.headers["X-CSRF-Token"] = second.cookies.get("calenza_csrf")
+        second.headers["X-CSRF-Token"] = second.cookies.get("sereno_csrf")
         slot = (await available(client))[0]
         results = await asyncio.gather(book(client, slot), book(second, slot))
         assert sorted(r.status_code for r in results) == [201, 409]
@@ -120,10 +120,10 @@ async def test_customer_cannot_read_or_change_other_customers_appointment(client
     client.cookies.clear()
     response = await client.post(
         "/api/v1/auth/login",
-        json={"email": "customer2@calenza.example", "password": "CalenzaDemo!2026"},
+        json={"email": "customer2@sereno.example", "password": "SerenoDemo!2026"},
     )
     assert response.status_code == 200
-    client.headers["X-CSRF-Token"] = client.cookies.get("calenza_csrf")
+    client.headers["X-CSRF-Token"] = client.cookies.get("sereno_csrf")
     assert (await client.get(f"/api/v1/bookings/{booking['id']}")).status_code == 404
     assert (
         await client.post(f"/api/v1/bookings/{booking['id']}/cancel", json={})
@@ -136,7 +136,7 @@ async def test_csrf_and_origin_enforced(client):
     assert (
         await client.patch("/api/v1/auth/me", json={"full_name": "No Change", "phone": ""})
     ).status_code == 403
-    client.headers["X-CSRF-Token"] = client.cookies.get("calenza_csrf")
+    client.headers["X-CSRF-Token"] = client.cookies.get("sereno_csrf")
     assert (
         await client.post("/api/v1/auth/logout", headers={"Origin": "https://evil.example"})
     ).status_code == 403
@@ -144,13 +144,13 @@ async def test_csrf_and_origin_enforced(client):
 
 async def test_refresh_rotation_and_logout_revoke_sessions(client):
     await login(client)
-    old = client.cookies.get("calenza_refresh")
+    old = client.cookies.get("sereno_refresh")
     assert (await client.post("/api/v1/auth/refresh")).status_code == 200
-    assert old != client.cookies.get("calenza_refresh")
-    client.headers["X-CSRF-Token"] = client.cookies.get("calenza_csrf")
-    access = client.cookies.get("calenza_access")
+    assert old != client.cookies.get("sereno_refresh")
+    client.headers["X-CSRF-Token"] = client.cookies.get("sereno_csrf")
+    access = client.cookies.get("sereno_access")
     await client.post("/api/v1/auth/logout")
-    client.cookies.set("calenza_access", access)
+    client.cookies.set("sereno_access", access)
     assert (await client.get("/api/v1/auth/me")).status_code == 401
 
 
@@ -230,7 +230,7 @@ async def test_admin_analytics_aggregate_persisted_records(client):
 
 async def test_password_reset_outbox_and_token_single_use(client):
     response = await client.post(
-        "/api/v1/auth/password-reset/request", json={"email": "customer@calenza.example"}
+        "/api/v1/auth/password-reset/request", json={"email": "customer@sereno.example"}
     )
     assert response.status_code == 200
     async with Session() as db:

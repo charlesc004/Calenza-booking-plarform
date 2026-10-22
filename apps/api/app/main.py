@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI):
     await engine.dispose()
 
 
-app = FastAPI(title="CALENZA API", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title="SERENO API", version="1.0.0", lifespan=lifespan)
 
 
 @app.exception_handler(IntegrityError)
@@ -71,9 +71,9 @@ async def security(request: Request, call_next):
                 {"detail": {"code": "invalid_origin", "message": "Request origin is not allowed."}},
                 status_code=403,
             )
-        if request.cookies.get("calenza_access") or request.cookies.get("calenza_refresh"):
+        if request.cookies.get("sereno_access") or request.cookies.get("sereno_refresh"):
             cookie, header = (
-                request.cookies.get("calenza_csrf", ""),
+                request.cookies.get("sereno_csrf", ""),
                 request.headers.get("x-csrf-token", ""),
             )
             if not cookie or not secrets.compare_digest(cookie, header):

@@ -44,7 +44,7 @@ export const router = createRouter({
           (path) => ({
             path,
             component: () => import("../features/auth/pages/AuthPage.vue"),
-            meta: { title: "Your CALENZA space" },
+            meta: { title: "Your SERENO space" },
           }),
         ),
         {
@@ -151,5 +151,5 @@ router.beforeEach(async (to) => {
   const roles = to.meta.roles as string[] | undefined;
   if (roles && auth.user && !roles.includes(auth.user.role))
     return auth.user.role === "customer" ? "/account" : "/dashboard";
-  document.title = `${String(to.meta.title || "Your wellbeing")} â€” CALENZA Studio`;
+  document.title = `${String(to.meta.title || "Your wellbeing")} — SERENO Studio`;
 });

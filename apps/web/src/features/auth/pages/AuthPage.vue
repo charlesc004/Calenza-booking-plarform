@@ -89,14 +89,14 @@ async function submit() {
 <template>
   <div class="auth-layout container">
     <div class="auth-art">
-      <img src="/images/studio.svg" alt="A welcoming space at CALENZA" />
+      <img src="/images/studio.svg" alt="A welcoming space at SERENO" />
       <div>
         <Leaf :size="30" />
         <h2>A little time,<br /><em>entirely yours.</em></h2>
       </div>
     </div>
     <div class="auth-form">
-      <p class="eyebrow">CALENZA STUDIO</p>
+      <p class="eyebrow">SERENO STUDIO</p>
       <h1>{{ titles[mode] }}</h1>
       <p class="muted">
         {{
@@ -156,7 +156,7 @@ async function submit() {
       </form>
       <p v-if="['login', 'register'].includes(mode)" class="auth-switch">
         {{
-          mode === "login" ? "New to CALENZA?" : "Already have your own space?"
+          mode === "login" ? "New to SERENO?" : "Already have your own space?"
         }}
         <RouterLink
           :to="{
@@ -169,9 +169,9 @@ async function submit() {
       <details v-if="mode === 'login'" class="demo-credentials">
         <summary>Explore with a demo account</summary>
         <p>
-          customer@calenza.example<br />staff@calenza.example<br />admin@calenza.example
+          customer@sereno.example<br />staff@sereno.example<br />admin@sereno.example
         </p>
-        <p>Password: <code>CalenzaDemo!2026</code></p>
+        <p>Password: <code>SerenoDemo!2026</code></p>
         <small>Local development accounts only.</small>
       </details>
     </div>

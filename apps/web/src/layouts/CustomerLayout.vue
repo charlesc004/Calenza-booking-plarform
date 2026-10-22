@@ -8,7 +8,7 @@ const auth = useAuth();
   <div class="container page-space">
     <div class="account-welcome">
       <div>
-        <p class="eyebrow">YOUR CALENZA SPACE</p>
+        <p class="eyebrow">YOUR SERENO SPACE</p>
         <h1>Hello, {{ auth.user?.full_name.split(" ")[0] }}<em>.</em></h1>
         <p class="muted">A little more calm, all in one place.</p>
       </div>

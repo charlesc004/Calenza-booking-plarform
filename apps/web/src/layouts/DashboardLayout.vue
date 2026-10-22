@@ -68,12 +68,12 @@ async function logout() {
   <div class="dashboard-shell" :class="{ 'sidebar-collapsed': collapsed }">
     <aside class="dashboard-sidebar" :class="{ 'mobile-open': mobile }">
       <RouterLink to="/" class="wordmark"
-        >CALENZA<span class="brand-studio">STUDIO</span></RouterLink
+        >SERENO<span class="brand-studio">STUDIO</span></RouterLink
       >
       <div class="workspace-label">
-        <span class="studio-avatar">c.</span>
+        <span class="studio-avatar">s.</span>
         <div>
-          CALENZA Studio<small>{{
+          SERENO Studio<small>{{
             auth.user?.role === "admin"
               ? "Studio workspace"
               : "Professional workspace"
@@ -149,7 +149,7 @@ async function logout() {
       </header>
       <main class="dashboard-main"><RouterView /></main>
       <footer class="dashboard-footer">
-        <span>CALENZA Studio</span
+        <span>SERENO Studio</span
         ><span>Thoughtful care. Beautifully organised.</span>
       </footer>
     </div>

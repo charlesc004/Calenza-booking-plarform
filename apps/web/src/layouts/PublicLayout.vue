@@ -41,8 +41,8 @@ async function signOut() {
       /></RouterLink>
     </div>
     <header class="public-header container">
-      <RouterLink to="/" class="wordmark" aria-label="CALENZA home"
-        ><span class="brand-icon">c</span>CALENZA<span class="brand-studio"
+      <RouterLink to="/" class="wordmark" aria-label="SERENO home"
+        ><span class="brand-icon">s</span>SERENO<span class="brand-studio"
           >STUDIO</span
         ></RouterLink
       >
@@ -115,7 +115,7 @@ async function signOut() {
       <div class="container footer-top">
         <div>
           <RouterLink to="/" class="wordmark"
-            >CALENZA<span class="brand-studio">STUDIO</span></RouterLink
+            >SERENO<span class="brand-studio">STUDIO</span></RouterLink
           >
           <p>
             A considered space for your wellbeing.<br />A little time, entirely
@@ -134,7 +134,7 @@ async function signOut() {
             <MapPin :size="14" /> 28 Willow Lane, London<br />Monday – Saturday
             · 9am – 7pm
           </p>
-          <a href="mailto:hello@calenza.example">hello@calenza.example</a>
+          <a href="mailto:hello@sereno.example">hello@sereno.example</a>
         </div>
         <div>
           <h4>Your space</h4>
@@ -149,7 +149,7 @@ async function signOut() {
       </div>
       <div class="container footer-bottom">
         <span
-          >© {{ new Date().getFullYear() }} CALENZA Studio. Made for a slower
+          >© {{ new Date().getFullYear() }} SERENO Studio. Made for a slower
           moment.</span
         ><span>Fictional studio · Portfolio demonstration</span>
       </div>

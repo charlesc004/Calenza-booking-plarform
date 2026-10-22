@@ -124,10 +124,10 @@ async def seed():
             return
         config = BusinessSettings()
         db.add(config)
-        password_hash = hasher.hash("CalenzaDemo!2026")
+        password_hash = hasher.hash("SerenoDemo!2026")
         admin = User(
             full_name="Alex Morgan",
-            email="admin@calenza.example",
+            email="admin@sereno.example",
             password_hash=password_hash,
             role="admin",
         )
@@ -136,9 +136,7 @@ async def seed():
         for index, (name, title, bio, image) in enumerate(PEOPLE):
             user = User(
                 full_name=name,
-                email="staff@calenza.example"
-                if index == 0
-                else f"staff{index + 1}@calenza.example",
+                email="staff@sereno.example" if index == 0 else f"staff{index + 1}@sereno.example",
                 password_hash=password_hash,
                 role="staff",
             )
@@ -180,9 +178,9 @@ async def seed():
         for index, name in enumerate(names):
             user = User(
                 full_name=name,
-                email="customer@calenza.example"
+                email="customer@sereno.example"
                 if index == 0
-                else f"customer{index + 1}@calenza.example",
+                else f"customer{index + 1}@sereno.example",
                 password_hash=password_hash,
                 role="customer",
                 phone=f"+44 7700 900{index:03}",
